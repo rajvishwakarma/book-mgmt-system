@@ -1,4 +1,4 @@
-# book-mgmt-system
+# Book Order & Inventory Mgmt System
 
  This document is entitled to list out the detailed aspects of Book Order and Inventory System Spring boot Application. 
  The application would deal features -
