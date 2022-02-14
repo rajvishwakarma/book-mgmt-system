@@ -45,7 +45,7 @@ public class StockServiceImpl implements StockService {
 				!Objects.isNull(bookService.getBook(stock.getBookId())));
 		else if(ValidationType.WAREHOUSE.equals(type))
 			return stockRequest.getStocks().stream().anyMatch(stock -> 
-			!Objects.isNull(wareHouseService.getWareHouse(stock.getWarehouseId())));
+			    !Objects.isNull(wareHouseService.getWareHouse(stock.getWarehouseId())));
 		return false;
 	}
 
@@ -53,9 +53,14 @@ public class StockServiceImpl implements StockService {
 	public void addStocks(StockRequest stockRequest, Book book) {
 		List<Stock> stocks = stockRequest.getStocks().stream().map(stock -> {
 								Stock currentStock = stockRepo.findByWareHouseIdAndBookId(stock.getWarehouseId(), book.getId());
-								currentStock.setQuantity(currentStock.getQuantity() + stock.getQuantity());
-								currentStock.setUpdatedTS(new Date());
-								return currentStock;
+								if(Objects.isNull(currentStock)) {
+									currentStock = new Stock(stock.getQuantity(), book, wareHouseService.getWareHouse(stock.getWarehouseId()));
+									return currentStock;
+								} else {
+									currentStock.setQuantity(currentStock.getQuantity() + stock.getQuantity());
+									currentStock.setUpdatedTS(new Date());
+									return currentStock;
+								}
 							}).collect(Collectors.toList());
 		stockRepo.saveAll(stocks);
 	}

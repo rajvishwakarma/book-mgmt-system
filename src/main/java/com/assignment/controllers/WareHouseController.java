@@ -67,7 +67,7 @@ public class WareHouseController {
 	public ResponseEntity<String> addStocks(@PathVariable("id") Long id, @RequestBody StockRequest stockRequest){
 		
 		WareHouse wareHouse = wareHouseService.getWareHouse(id);
-		if(stockService.validate(stockRequest, ValidationType.WAREHOUSE))
+		if(stockService.validate(stockRequest, ValidationType.BOOK))
 			stockService.addStocks(stockRequest, wareHouse);
 		return new ResponseEntity<String>("Stocks Added/Updated Successfully!", HttpStatus.OK);
 	}

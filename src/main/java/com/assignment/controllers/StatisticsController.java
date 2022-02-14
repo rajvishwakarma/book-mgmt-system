@@ -9,13 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment.models.Statistics;
 import com.assignment.services.OrderService;
-import com.assignment.services.StockService;
 
 @RestController
 public class StatisticsController {
-	
-	@Autowired
-	private StockService stockService;
 	
 	@Autowired
 	private OrderService orderService;
